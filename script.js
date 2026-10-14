@@ -36,7 +36,7 @@ const U=[
  {n:'Monoambiente Apart',cap:2,base:68000,d:'1 ambiente · cama doble · balcón'},
  {n:'2 ambientes Apart',cap:4,base:92000,d:'Dormitorio + sofá cama · cocina completa'},
  {n:'3 ambientes apart',cap:6,base:128000,d:'2 dormitorios · 2 baños · parrilla'},
- {n:'Suite Apart',cap:2,base:150000,d:'Jacuzzi privado · cama king'},
+ {n:'Suite Apart',cap:2,base:150000,d:'Jacuzzi privado · cama doble'},
  ];
 // CLEAN = costo de limpieza final. fm() muestra un número como precio (ej: $92.000)
 const CLEAN=18000,fm=n=>'$'+Math.round(n).toLocaleString('es-AR');
