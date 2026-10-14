@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apart Oasis · Reservá tu estadía en Las Gaviotas</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+<!-- ============================================================
+     ESTRUCTURA DE LA PÁGINA (de arriba hacia abajo)
+     1. Barra superior con logo   2. Título y datos de confianza
+     3. Galería (video y fotos)   4. Calendario y aparts (izquierda)
+     5. Cotización (derecha)      6. Barra fija del celular y ventana de video
+     CÓMO EDITAR SIN ROMPER NADA
+     - Podés cambiar TEXTOS libremente (lo que está entre > y <).
+     - NO cambies los id="..." (gm, gp, gn, cal, units, quote, fin, fout, vbtn,
+       dlg, yt, dclose, bs, bt, bcta, toast): los usa script.js.
+     - NO borres etiquetas de cierre (</div>, </section>...): cada una cierra una caja.
+     - Los colores y tamaños se cambian en styles.css, no acá.
+     ============================================================ -->
+
+<!-- 1. BARRA SUPERIOR: logo y teléfono de recepción -->
+<div class="top"><div class="wrap">
+ <!-- LOGO: para usar el logo real, guardalo como logo.png en esta carpeta y reemplazá
+      el contenido de <a class="logo"> por: <img src="logo.png" alt="Apart Oasis"> -->
+ <a class="logo" href="#" aria-label="Apart Oasis"><b>oasis</b><small>APART OASIS & SPA EN LAS GAVIOTAS</small></a>
+ <a class="tel" href="tel:+5402255477005">Reservas 02255 47-7005</a>
+</div></div>
+<!-- 2. TÍTULO PRINCIPAL, frase y datos de confianza (Google, Tripadvisor...). Editá solo los textos. -->
+<header class="hero"><div class="wrap">
+<h1>Elegí tus fechas y mirá el precio al instante</h1>
+<p>Apart-Spa en Las Gaviotas. Calendario. Podés completar el formulario desde aqui para que llegue a un asesor</p>
+<div class="trust"><span>★ <b>4,5</b> en Google (576 opiniones)</span><span><b>94%</b> de recomendación en Tripadvisor</span><span><b>Spa</b> del complejo</span><span><b>Reservá directo</b> y ahorrá</span></div>
+</div></header>
+
+<div class="wrap">
+<!-- 3. GALERÍA. Cada <div class="ph tono-N"> es un recuadro.
+     - El 1º es el del video (no borrar el <button id="vbtn"> ni el <div class="play">).
+     - Para poner una foto real, agregá adentro:  <img src="foto1.jpg" alt="Descripción de la foto">
+     - tono-1 a tono-5 son los colores de fondo (se definen en styles.css, sección 14). -->
+<div class="gal" aria-label="Galería">
+ <div class="ph tono-5"><img src="assets/PLANO OASIS.png" alt="foto exterior oasis"><button id="vbtn" aria-label="Ver video del complejo"></button><div class="play"></div><span>Mirá el recorrido en video</span></div>
+ <div class="ph tono-3"><img src="assets/SPA.jpeg" alt="fot spa de oasis"><span>Spa</span></div>
+ <div class="ph tono-1"><img src="assets/pileafueraOA.png" alt=""><span>Pileta climatizada con cerramiento corredizo</span></div>
+ <div class="ph tono-2"><img src="assets/solarium.png" alt=""><span>Solarium</span></div>
+ <div class="ph tono-4"><img src="assets/O5.png" alt="cabañas"><span>Cabañas</span></div>
+</div>
+
+<div class="main"><div>
+<section>
+<!-- 4a. CALENDARIO con script.js. Solo tocar los titulos-->
+<h2>1. ¿Cuándo y cuántos?</h2>
+<p class="sub">Tocá la llegada y la salida. Los precios son por noche.</p>
+<div class="ctrl">
+ <div class="f" id="fin"><small>Llegada</small><b>Elegí fecha</b></div>
+ <div class="f" id="fout"><small>Salida</small><b>Elegí fecha</b></div>
+ <div class="f"><small>Personas</small><div class="g"><button id="gm" aria-label="Menos personas">−</button><b id="gn">2</b><button id="gp" aria-label="Más personas">+</button></div></div>
+</div>
+<div class="card"><div class="cal" id="cal"></div>
+<div class="leg"><span><s class="s-sel"></s>Tu selección</span><span><s class="s-busy"></s>Ocupado</span><span><i>$12k</i> = precio por noche</span></div></div>
+</section>
+
+<section>
+<!-- 4b. APARTS: las tarjetas las genera script.js a partir de la lista U. Para agregar o cambiar aparts, editá script.js. -->
+<h2>2. Elegí tu apart</h2>
+<p class="sub" id="usub">Mostramos disponibilidad según tus fechas.</p>
+<div class="units" id="units"></div>
+</section>
+
+<section>
+<!-- 4c. TRES CAJITAS DE BENEFICIOS: editá los textos. Para agregar una, copiá un <div><b>Título</b>Texto</div> completo. -->
+<h2>Completá el formulario</h2>
+<div class="why"><div><b>Reserva directao</b>Un asesor cargará tu formulario.</div><div><b>Podemos llamarte</b> Dejanos tu teléfono</div><div><b>Respuesta en minutos</b>Te atendemos por WhatsApp .</div></div>
+</section>
+</div>
+
+<!-- 5. COTIZACIÓN (columna derecha): el contenido lo arma script.js. No agregues nada adentro de <div id="quote">. -->
+<aside class="q"><div class="card" id="quote"></div></aside>
+</div></div>
+
+<!-- 6a. BARRA FIJA DEL CELULAR (total y botón). Solo se ve en pantallas chicas. -->
+<div class="bar"><div><small id="bs">Elegí tus fechas</small><b id="bt">—</b></div><button class="cta" id="bcta">Ver precio</button></div>
+<div class="toast" id="toast" role="status"></div>
+<!-- 6b. VENTANA DEL VIDEO. Para cambiar el video, reemplazá QBk799Bekpc (en data-src) por el código de otro video de YouTube. -->
+<dialog id="dlg"><div class="vid">
+  <!-- El video se carga recién al tocar el recuadro de la galería (ver script.js) -->
+  <iframe id="yt" title="Recorrido por Apart Oasis" 
+  data-src="https://www.youtube.com/embed/QBk799Bekpc?autoplay=1&rel=0&playsinline=1"
+          allow="autoplay; encrypted-media; fullscreen" referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen></iframe>
+ </div><div class="dlg-foot"><button class="cta alt" id="dclose">Cerrar</button></div></dialog>
+
+<script src="script.js"></script></body></html>

@@ -1,0 +1,301 @@
+
+/* ==========================================================================
+   APART OASIS · HOJA DE ESTILOS
+   ==========================================================================
+
+   ¿QUÉ QUERÉS CAMBIAR?                      → DÓNDE TOCAR
+   --------------------------------------------------------------------------
+   Colores de la marca (verde, botón, fondo) → sección 1 (variables de color)
+   Tamaño de la letra general                → --tam-texto (sección 1)
+   Ancho máximo de la página                 → --ancho-pagina (sección 1)
+   Ancho de la caja de cotización            → --ancho-cotizador (sección 1)
+   Alto de las fotos de la galería           → --alto-galeria (sección 1)
+   Tamaño de la foto de cada apart           → --foto-apart-ancho / --foto-apart-alto
+   Qué tan redondeadas son las cajas         → --radio y --radio-card (sección 1)
+   Colores de los recuadros de la galería    → sección 14 (.tono-1 a .tono-5)
+   Cómo se ve en celular                     → sección 16 (@media max-width:860px)
+   Velocidad de las animaciones              → sección 15
+
+   REGLAS PARA NO ROMPER NADA
+   --------------------------------------------------------------------------
+   1. Cambiá solo los VALORES (lo que está después de los dos puntos).
+   2. No cambies los nombres de las clases ni de los # (.d, .sel, .busy, .rng,
+      .u, .na, .tag, .row, .tot, .dis, .hint, .cta, .alt, .on, .second, .bar,
+      .toast, #dlg...): los usa script.js y si cambian dejan de funcionar.
+   3. Cada declaración termina con punto y coma ( ; ) y cada regla se cierra
+      con llave ( } ). Si se te borra uno, el resto del archivo se rompe.
+   4. Los colores se escriben así: #94d82d (hexadecimal). Podés elegirlos en
+      cualquier "selector de color" web y copiar el código.
+   5. Antes de probar algo grande, guardá una copia del archivo.
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. VARIABLES  (cambiando un valor acá cambia todo el sitio)
+   ========================================================================== */
+
+/* --- Colores en modo CLARO (el que ve la mayoría) --- */
+:root{
+  --ink:#2b3326;        /* texto principal y títulos */
+  --mut:#667060;        /* texto secundario (gris verdoso) */
+  --sea:#90cc35;        /* VERDE LIMA de marca: barra superior, día elegido, bordes de selección */
+  --sea-d:#4c8a0e;      /* verde oscuro: textos y botones secundarios sobre fondo claro */
+  --foam:#f0f9e0;       /* verde clarito: fondo de etiquetas y días dentro del rango */
+  --sun:#1d2418;        /* fondo del BOTÓN PRINCIPAL ("Ver disponibilidad y reservar") */
+  --sunink:#94d82d;     /* color del TEXTO del botón principal */
+  --bg:#fafcf7;         /* fondo de toda la página */
+  --card:#fff;          /* fondo de las cajas (calendario, cotización, tarjetas) */
+  --line:#dfe6d6;       /* color de los bordes finos */
+  --busy:#dadfd3;       /* gris de los días ocupados */
+  --sobre-lima:#1d2e08; /* texto oscuro que va sobre el verde lima */
+  --verde-desc:#1d7a46; /* verde del renglón de descuento en la cotización */
+
+  /* --- Tamaños (cambialos con cuidado, de a poco) --- */
+  --tam-texto:17px;         /* tamaño de la letra general */
+  --ancho-pagina:1120px;    /* ancho máximo del contenido en computadora */
+  --ancho-cotizador:360px;  /* ancho de la caja de cotización (columna derecha) */
+  --alto-galeria:150px;     /* alto de cada fila de fotos de la galería */
+  --foto-apart-ancho:96px;  /* ancho de la foto en cada tarjeta de apart */
+  --foto-apart-alto:72px;   /* alto de la foto en cada tarjeta de apart */
+  --radio:12px;             /* redondeo de cajas chicas y botones */
+  --radio-card:16px;        /* redondeo de cajas grandes */
+
+  /* No tocar: márgenes seguros para celulares con muesca */
+  --sat:env(safe-area-inset-top,0px);
+  --sab:env(safe-area-inset-bottom,0px);
+  box-sizing:border-box;
+}
+:root:not([data-theme=light]){color-scheme:light}
+
+/* --- Colores en modo OSCURO ---
+   Solo se ven si el celular/computadora del usuario está en modo oscuro.
+   IMPORTANTE: estos colores están escritos DOS veces (en el @media de abajo y en
+   :root[data-theme=dark]). Si cambiás uno, cambialo en los dos lugares. */
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme=light]){--ink:#eef4e6;--sea:#94d82d;--sea-d:#a9e44d;--foam:#1f2d12;--sun:#94d82d;--sunink:#16210d;--bg:#10150c;--card:#182012;--line:#2b3a1e;--mut:#a6b39a;--busy:#2c3824;color-scheme:dark}
+}
+:root[data-theme=dark]{--ink:#eef4e6;--sea:#94d82d;--sea-d:#a9e44d;--foam:#1f2d12;--sun:#94d82d;--sunink:#16210d;--bg:#10150c;--card:#182012;--line:#2b3a1e;--mut:#a6b39a;--busy:#2c3824;color-scheme:dark}
+
+
+/* ==========================================================================
+   2. BASE (reglas generales de toda la página)
+   ========================================================================== */
+*,*:before,*:after{box-sizing:inherit}
+html{padding-top:var(--sat);scroll-padding-top:var(--sat)}
+/* La fuente está acá. Si la cambiás, cambiá también el <link> de Google Fonts en index.html.
+   El padding-bottom deja lugar para la barra fija del celular: no lo achiques. */
+body{margin:0;background:var(--bg);color:var(--ink);font:var(--tam-texto)/1.5 'Source Sans 3','Source Sans Pro',system-ui,sans-serif;padding-bottom:calc(84px + var(--sab))}
+h1,h2,h3{font-family:'Source Sans 3','Source Sans Pro',system-ui,sans-serif;font-weight:500;line-height:1.1;margin:0} /* font-weight: 600 = más finos, 700 = más gruesos */
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px} /* recuadro que se ve al navegar con teclado: no lo borres */
+.wrap{max-width:var(--ancho-pagina);margin:0 auto;padding:0 20px} /* contenedor central; padding = margen lateral */
+
+
+/* ==========================================================================
+   3. BARRA SUPERIOR CON LOGO
+   ========================================================================== */
+.top{background:var(--sea);padding:12px 0} /* padding = alto de la barra */
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{color:#fff;text-decoration:none;line-height:1;display:flex;flex-direction:column}
+.logo b{font-size:34px;font-weight:700;letter-spacing:-1px} /* tamaño de la palabra "oasis" (solo si no usás imagen) */
+.logo small{font-size:10px;font-weight:700;letter-spacing:.5px;margin-top:2px}
+.logo img{height:46px;display:block} /* alto del logo cuando uses logo.png */
+.top a.tel{color:var(--sobre-lima);font-weight:700;text-decoration:none;font-size:15px}
+
+
+/* ==========================================================================
+   4. PRESENTACIÓN (título y frase de arriba)
+   ========================================================================== */
+header.hero{padding:28px 0 20px} /* espacio arriba y abajo del título */
+header h1{font-size:clamp(30px,5vw,40px);max-width:16ch} /* clamp(mínimo, ideal, máximo): tamaño del título */
+header p{color:var(--mut);max-width:52ch;margin:10px 0 0}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:14px;color:var(--mut)} /* línea de ★ 4,5 · 94% · Spa */
+.trust b{color:var(--ink)}
+
+
+/* ==========================================================================
+   5. GALERÍA DE FOTOS Y VIDEO
+   ========================================================================== */
+/* grid-template-columns: ancho de las 3 columnas (2fr = el doble que 1fr).
+   grid-template-rows: alto de las 2 filas (usa --alto-galeria). */
+.gal{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:var(--alto-galeria) var(--alto-galeria);gap:8px;margin:8px 0 28px}
+/* Cada recuadro de la galería. El degradé usa los colores de la sección 14. */
+.ph{border-radius:var(--radio);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:10px;color:#eee9e9;font-size:13px;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.ph:first-child{grid-row:span 2} /* el primer recuadro (video) ocupa 2 filas */
+.ph button{all:unset;position:absolute;inset:0;cursor:pointer}
+/* Botón de play: width/height = tamaño del círculo. La animación (late 3 veces) está en la sección 15 */
+.ph .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;animation:ring 1.8s ease-out 3}
+.ph .play:after{content:"";border-left:18px solid #2b3326;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px} /* triángulo del play */
+.ph span{position:relative;text-shadow:0 1px 4px rgba(0,0,0,.5)} /* texto sobre la foto */
+/* Cuando pongas fotos reales: <img> dentro de .ph. Se estira para cubrir todo el recuadro y hace zoom al pasar el mouse. */
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.ph:hover img{transform:scale(1.06)}
+
+
+/* ==========================================================================
+   6. DISTRIBUCIÓN PRINCIPAL (izquierda: calendario y aparts · derecha: cotización)
+   ========================================================================== */
+.main{display:grid;grid-template-columns:1fr var(--ancho-cotizador);gap:32px;align-items:start} /* gap = separación entre columnas */
+section{margin-bottom:34px} /* espacio entre bloques */
+h2{font-size:24px;margin-bottom:6px} /* tamaño de "1. ¿Cuándo y cuántos?" */
+.sub{color:var(--mut);margin:0 0 14px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radio-card);padding:18px} /* caja blanca genérica */
+
+
+/* ==========================================================================
+   7. CAMPOS: LLEGADA, SALIDA Y PERSONAS
+   ========================================================================== */
+.ctrl{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.f{border:1px solid var(--line);background:var(--card);border-radius:var(--radio);padding:8px 12px;text-align:left;color:var(--ink)}
+.f small{display:block;color:var(--mut);font-size:12px}
+.f b{font-size:15px}
+.f.on{border-color:var(--sea);box-shadow:0 0 0 2px var(--sea) inset} /* campo que se está completando: borde verde */
+.g{display:flex;align-items:center;justify-content:space-between}
+.g button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink)} /* botones − y + */
+
+
+/* ==========================================================================
+   8. CALENDARIO
+   ========================================================================== */
+.cal{display:grid;grid-template-columns:1fr 1fr;gap:24px} /* los dos meses lado a lado */
+.cm .hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-weight:700;text-transform:capitalize}
+.hd button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink)} /* flechas ‹ › */
+.hd button:disabled{opacity:.3;cursor:default}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px} /* 7 columnas = 7 días de la semana */
+.dow{font-size:12px;color:var(--mut);text-align:center;padding-bottom:4px} /* L M M J V S D */
+/* Cada día. aspect-ratio = forma de la celda (1/1.05 = casi cuadrada; probá 1/1.2 para más alta). */
+.d{aspect-ratio:1/1.05;border:0;border-radius:8px;background:transparent;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;line-height:1.15;transition:background .15s ease}
+.d i{font-style:normal;font-size:10px;color:var(--mut)} /* precio chiquito dentro del día */
+.d:hover:not(:disabled){background:var(--foam)}
+.d.busy{background:var(--busy);text-decoration:line-through;color:var(--mut)} /* día ocupado */
+.d.busy i{display:none}
+.d:disabled{opacity:.35;cursor:default} /* días pasados */
+.d.rng{background:var(--foam);border-radius:0} /* días del medio del rango elegido */
+.d.sel{background:var(--sea);color:var(--sobre-lima);font-weight:700;animation:pop .25s ease-out} /* llegada y salida elegidas */
+.d.sel i{color:var(--sobre-lima)}
+.leg{display:flex;gap:16px;font-size:13px;color:var(--mut);margin-top:12px;flex-wrap:wrap} /* leyenda de abajo */
+.leg s{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:5px;text-decoration:none}
+
+
+/* ==========================================================================
+   9. TARJETAS DE APART
+   ========================================================================== */
+.units{display:grid;gap:10px} /* gap = separación entre tarjetas */
+/* grid-template-columns: [foto] [texto] [precio]. La foto usa --foto-apart-ancho */
+.u{display:grid;grid-template-columns:var(--foto-apart-ancho) 1fr auto;gap:14px;align-items:center;text-align:left;width:100%;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px;color:var(--ink);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.u[aria-pressed=true]{border-color:var(--sea);box-shadow:0 0 0 2px var(--sea) inset} /* apart seleccionado */
+.u:not(.na):hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(43,51,38,.12)} /* se levanta al pasar el mouse */
+.u .t{height:var(--foto-apart-alto);border-radius:10px;background:linear-gradient(150deg,var(--c1),var(--c2))} /* foto/recuadro del apart */
+.u h3{font-size:18px}
+.u p{margin:2px 0 0;color:var(--mut);font-size:14px}
+.u .pr{text-align:right;font-size:13px;color:var(--mut)}
+.u .pr b{display:block;font-size:18px;color:var(--ink)} /* precio grande */
+.u.na{opacity:.55} /* apart no disponible: se ve apagado */
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--foam);color:var(--sea-d);margin-top:4px} /* etiqueta "Disponible" */
+.tag.no{background:var(--busy);color:var(--ink)} /* etiqueta "No disponible" */
+
+
+/* ==========================================================================
+   10. COTIZACIÓN Y BOTONES
+   ========================================================================== */
+.q{position:sticky;top:16px} /* la caja acompaña al hacer scroll. top = distancia al borde de arriba */
+.q h3{font-size:20px;margin-bottom:10px}
+.row{display:flex;justify-content:space-between;padding:6px 0;font-size:15px} /* cada renglón: "Alojamiento ... $X" */
+.row.dis{color:var(--verde-desc)} /* renglón de descuento */
+.row.hint{color:var(--mut);font-size:13px} /* aviso "Con 4 noches o más..." */
+/* Renglón del TOTAL. La animación (destello verde) está en la sección 15. */
+.row.tot{border-top:1px solid var(--line);margin-top:6px;padding-top:12px;font-size:20px;font-weight:700;animation:total .7s ease-out;margin-inline:-8px;padding-inline:8px;border-radius:8px}
+.note{font-size:13px;color:var(--mut);margin:8px 0 14px}
+.empty{color:var(--mut);padding:8px 0 4px}
+
+/* BOTÓN PRINCIPAL. Colores: --sun (fondo) y --sunink (texto). padding = alto/ancho interno. */
+.cta{display:block;width:100%;border:0;border-radius:var(--radio);background:var(--sun);color:var(--sunink);font-weight:700;font-size:17px;padding:14px;text-align:center;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+.cta:disabled{background:var(--busy);color:var(--mut);cursor:default}
+.cta:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.2)} /* se eleva */
+.cta:not(:disabled):active{transform:translateY(0);box-shadow:none} /* se hunde al tocarlo */
+.cta.alt{background:transparent;border:1px solid var(--sea-d);color:var(--sea-d);margin-top:8px;font-size:15px;padding:11px} /* botón secundario (WhatsApp) */
+
+
+/* ==========================================================================
+   11. "POR QUÉ RESERVAR DIRECTO" (3 cajitas)
+   ========================================================================== */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.why div{background:var(--foam);border-radius:var(--radio);padding:14px;font-size:14px}
+.why b{display:block;margin-bottom:2px;font-size:15px}
+
+
+/* ==========================================================================
+   12. BARRA FIJA DEL CELULAR Y AVISO EMERGENTE
+   ========================================================================== */
+.bar{display:none} /* en computadora no se ve; en celular se activa en la sección 16 */
+/* Aviso corto ("Esa noche está ocupada"). bottom = distancia al borde de abajo. */
+.toast{position:fixed;left:50%;bottom:calc(100px + var(--sab));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:30;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+
+
+/* ==========================================================================
+   13. VENTANA DEL VIDEO (vertical, como YouTube Shorts)
+   ========================================================================== */
+dialog{border:0;border-radius:var(--radio-card);padding:0;max-width:640px;width:92%;background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.6)} /* fondo oscuro detrás de la ventana: .6 = 60% de oscuridad */
+.vid{aspect-ratio:16/9;background:linear-gradient(150deg,#6fb81a,#2b3326);display:grid;place-items:center;color:#fff;text-align:center;padding:20px}
+/* Tamaño de la ventana: 70vh = 70% del alto de la pantalla, 680px = máximo. 9/16 = formato vertical.
+   Si algún día subís un video horizontal, cambiá 9/16 por 16/9 en las dos líneas. */
+#dlg{width:min(92vw,calc(min(70vh,680px)*9/16))}
+#dlg .vid{aspect-ratio:9/16;padding:0;background:#000;display:block}
+#dlg iframe{width:100%;height:100%;border:0;display:block}
+.dlg-foot{padding:12px;text-align:right}
+.dlg-foot .cta{width:auto;margin:0;display:inline-block} /* botón "Cerrar" */
+
+
+/* ==========================================================================
+   14. COLORES DE LOS RECUADROS (galería y tarjetas de apart)
+   Cada línea define un degradé de dos colores. --c1 = color de arriba, --c2 = color de abajo.
+   Las tarjetas de apart usan los tonos en orden (1º apart = tono-1, 2º = tono-2...).
+   Para sumar un tono: copiá una línea, cambiale el número (tono-6) y los colores.
+   Para el recuadro con tono nuevo en la galería: agregá la clase en index.html.
+   ========================================================================== */
+.tono-1{--c1:#94d82d;--c2:#4c8a0e}
+.tono-2{--c1:#cfe9a0;--c2:#7aa63a}
+.tono-3{--c1:#b9e36b;--c2:#5f9a14}
+.tono-4{--c1:#a7b59a;--c2:#4b5742}
+.tono-5{--c1:#6fb81a;--c2:#2b3326}
+
+/* Cuadritos de color de la leyenda del calendario (deben coincidir con el calendario) */
+.leg .s-sel{background:var(--sea)}  /* = día elegido */
+.leg .s-busy{background:var(--busy)} /* = día ocupado */
+.leg i{font-style:normal}
+
+
+/* ==========================================================================
+   15. ANIMACIONES
+   Los números en segundos (.2s, .7s) son la duración: más grande = más lenta.
+   Para apagar una animación: borrá su línea "animation:..." o poné "animation:none".
+   ========================================================================== */
+@keyframes total{from{background:var(--sea)}to{background:transparent}}   /* destello del total */
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.1)}100%{transform:scale(1)}} /* salto del día elegido */
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(255,255,255,.7)}100%{box-shadow:0 0 0 24px rgba(255,255,255,0)}} /* latido del play */
+/* Si el dispositivo tiene activada la opción "reducir movimiento", se apagan todas: no lo borres. */
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+
+/* ==========================================================================
+   16. CELULAR Y PANTALLAS CHICAS (menos de 860px de ancho)
+   Todo lo de acá adentro SOLO se aplica en pantallas chicas.
+   ========================================================================== */
+@media(max-width:860px){
+  .main{grid-template-columns:1fr}  /* cotización pasa debajo, en una sola columna */
+  .q{position:static}
+  .gal{grid-template-columns:1fr 1fr;grid-template-rows:170px 100px 100px} /* alto de las filas de la galería en celular */
+  .ph:first-child{grid-column:span 2;grid-row:auto}
+  .cal{grid-template-columns:1fr}   /* un solo mes */
+  .cm.second{display:none}
+  .why{grid-template-columns:1fr}   /* las 3 cajitas, una debajo de otra */
+  /* Barra fija de abajo con total y botón */
+  .bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid var(--line);padding:10px 16px calc(10px + var(--sab));gap:12px;align-items:center;justify-content:space-between}
+  .bar .cta{width:auto;padding:12px 20px;font-size:16px}
+  .bar small{display:block;color:var(--mut);font-size:12px}
+  .bar b{font-size:19px} /* tamaño del total en la barra */
+  .u{grid-template-columns:72px 1fr}  /* foto más chica en tarjetas de apart */
+  .u .pr{grid-column:1/-1;text-align:left}
+}
